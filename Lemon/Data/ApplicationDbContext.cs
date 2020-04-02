@@ -17,6 +17,7 @@ namespace Lemon.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Fruit> Fruits { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
