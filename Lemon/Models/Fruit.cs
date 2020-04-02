@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace Lemon.Models
 {
-    public class Lemon
+    public class Fruit
     {
-        public int LemonID { get; set; }
+        public int FruitID { get; set; }
         public string Name { get; set; }
         public string Soil { get; set; }
-        public string Feature  { get; set; }
+        public string Feature { get; set; }
         public string Water { get; set; }
     }
 }

@@ -11,9 +11,10 @@ using System;
 namespace Lemon.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200402185319_addFruitClass")]
+    partial class addFruitClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,24 +70,6 @@ namespace Lemon.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Lemon.Models.Fruit", b =>
-                {
-                    b.Property<int>("FruitID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Feature");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Soil");
-
-                    b.Property<string>("Water");
-
-                    b.HasKey("FruitID");
-
-                    b.ToTable("Fruits");
                 });
 
             modelBuilder.Entity("Lemon.Models.User", b =>
