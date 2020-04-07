@@ -12,42 +12,45 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Soil)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Feature)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Water)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Soil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Feature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Water)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Soil)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Feature)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Water)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FruitID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FruitID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FruitID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Soil)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Feature)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Water)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.FruitID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.FruitID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.FruitID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<script type="text/javascript" src="https://host1.easypolls.net/ext/scripts/emPoll.js?p=5e8ca53de4b09a2d524cccec"></script><a class="OPP-powered-by" href="http://www.objectplanet.com/opinio/" style="text-decoration:none;"><div style="font: 9px arial; color: gray;">survey solution</div></a>
