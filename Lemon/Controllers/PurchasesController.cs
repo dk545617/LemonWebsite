@@ -17,13 +17,7 @@ namespace Lemon.Controllers
         public PurchasesController(ApplicationDbContext context)
         {
             _context = context;
-        }
-
-        //Sample: Cart total
-        public async Task<IActionResult> CartTest()
-        {
-            return View(await _context.Purchases.ToListAsync())
-        }
+        }        
 
         // GET: Purchases
         public async Task<IActionResult> Index()
