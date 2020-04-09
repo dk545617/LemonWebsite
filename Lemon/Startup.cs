@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Lemon.Data;
 using Lemon.Models;
 using Lemon.Services;
+using Lemon.Data.Repositories;
+using Lemon.Data.Interfaces;
 
 namespace Lemon
 {
@@ -35,6 +37,7 @@ namespace Lemon
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IPurchaseRepository, PurchaseRepository>();
 
             services.AddMvc();
         }
