@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lemon.Data.Interfaces
 {
-    interface IPurchaseRepository
+    public interface IPurchaseRepository
     {
         IEnumerable<Purchase> Purchases { get; }
 
