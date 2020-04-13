@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<Lemon.Models.Purchase>
 
 @{
-    ViewData["Title"] = "CartTest";
+    ViewData["Title"] = "Shop";
 }
 
-<h2>CartTest</h2>
+<h2>Available Purchase Items</h2>
 
-<p>
-    Testing Cart methods
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -35,7 +32,10 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
-            </td>            
+            </td>
+            <td>
+                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.PurchaseId">Add To Cart</a>
+            </td>
         </tr>
 }
     </tbody>

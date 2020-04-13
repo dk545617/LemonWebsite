@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lemon.Data.Interfaces;
 using Lemon.Models;
-using Lemon.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

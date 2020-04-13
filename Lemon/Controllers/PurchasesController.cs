@@ -19,8 +19,14 @@ namespace Lemon.Controllers
             _context = context;
         }        
 
-        // GET: Purchases
+        // GET: Purchases for Purchase Management
         public async Task<IActionResult> Index()
+        {
+            return View(await _context.Purchases.ToListAsync());
+        }
+
+        //GET: Purchases for shopping list
+        public async Task<IActionResult> List()
         {
             return View(await _context.Purchases.ToListAsync());
         }

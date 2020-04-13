@@ -13,6 +13,7 @@ using Lemon.Models;
 using Lemon.Services;
 using Lemon.Data.Repositories;
 using Lemon.Data.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace Lemon
 {
@@ -38,6 +39,11 @@ namespace Lemon
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IPurchaseRepository, PurchaseRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => Cart.GetCart(sp));
+
+            services.AddMemoryCache();
+            services.AddSession();
 
             services.AddMvc();
         }
@@ -59,6 +65,8 @@ namespace Lemon
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
