@@ -11,42 +11,50 @@ namespace Lemon.Models
 {
     public class Cart
     {
+        //injecting DB context in constructor
         private readonly ApplicationDbContext _appDbContext;
         public Cart(ApplicationDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
 
+        //declare properties
         public string CartId { get; set; }
         public List<CartPurchase> CartPurchases { get; set; }
 
+        //Creating a session, establilshing a CartID Session variable, and creating the Cart
         public static Cart GetCart(IServiceProvider service)
         {
+            //this creates the session - service is added in startup file
             ISession session = service.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            //this is our db context
             var context = service.GetService<ApplicationDbContext>();
+            //check for existing cartID in session, else generate unique id
             string cartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
+            //confirm or set cartId
             session.SetString("CartId", cartId);
-
+            //constructs and returns an empty cart
             return new Cart(context) { CartId = cartId };
         }
 
         public void AddToCart (Purchase purchase, int quantity)
         {
+            //check to see if this item is already in the cart
             var cartPurchase = _appDbContext.CartPurchases.SingleOrDefault(c => c.Purchase.PurchaseId == purchase.PurchaseId && c.CartId == CartId);
-            if (cartPurchase == null)
+            if (cartPurchase == null) //item does not exist yet in cart?
             {
-                cartPurchase = new CartPurchase
+                cartPurchase = new CartPurchase  //create new instance of item in cart
                 {
                     CartId = CartId,
                     Purchase = purchase,
                     Quantity = quantity
                 };
-                _appDbContext.CartPurchases.Add(cartPurchase);
-            } else
+                _appDbContext.CartPurchases.Add(cartPurchase); //create a new cartpurchase record
+            } else //item is already in cart
             {
-                cartPurchase.Quantity += quantity;
+                cartPurchase.Quantity += quantity; //increase qty
             }
-            _appDbContext.SaveChanges();
+            _appDbContext.SaveChanges(); //save changes
         }//end of AddToCart
 
         public int RemoveFromCart(Purchase purchase)
