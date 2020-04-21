@@ -20,6 +20,8 @@ namespace Lemon.Data
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<CartPurchase> CartPurchases { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail>  OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

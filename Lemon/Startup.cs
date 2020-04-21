@@ -42,6 +42,7 @@ namespace Lemon
             services.AddTransient<IPurchaseRepository, PurchaseRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sp => Cart.GetCart(sp));
+            services.AddTransient<IOrderRepository, OrderRepository>();
 
             services.AddMemoryCache();
             services.AddSession();
