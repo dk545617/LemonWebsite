@@ -75,6 +75,57 @@ namespace Lemon.Models
                 );
                 context.SaveChanges();
             }
+
+            if (!context.Fruits.Any())
+            {
+                context.Fruits.AddRange(
+                    new Fruit
+                    {
+                        Name = "Eureka",
+                        Soil = "Well-Draining",
+                        Feature = "Year round fruit",
+                        Water = "Generously"
+                    },
+
+                    new Fruit
+                    {
+                        Name = "Pink Variegated",
+                        Soil = "Well-Draining",
+                        Feature = "Pink Flesh",
+                        Water = "Generously"
+                    },
+                    new Fruit
+                    {
+                        Name = "Lisbon",
+                        Soil = "Well-Draining",
+                        Feature = "Heat and wind tolerant",
+                        Water = "Medium"
+                    },
+                    new Fruit
+                    {
+                        Name = "Meyer",
+                        Soil = "Well-Draining",
+                        Feature = "Dwarf variety",
+                        Water = "Moist Soil"
+                    },
+                    new Fruit
+                    {
+                        Name = "Primofiori",
+                        Soil = "Well-Draining",
+                        Feature = "Fruits Heavily",
+                        Water = "Moist Soil"
+                    },
+                    new Fruit
+                    {
+                        Name = "Verna",
+                        Soil = "Well-Draining",
+                        Feature = "Vigorous Growth",
+                        Water = "Moist Soil"
+                    }
+
+                );
+                context.SaveChanges();
+            }
         }
     }
 }
