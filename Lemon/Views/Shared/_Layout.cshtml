@@ -38,12 +38,16 @@
                     <li><a asp-area="" asp-controller="Fruits" asp-action="Index">Fruits</a></li>
                     <li><a asp-area="" asp-controller="Purchases" asp-action="Index">Manage Purchases</a></li>
                     <li><a asp-area="" asp-controller="Purchases" asp-action="List">SHOP!</a></li>
-                    <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
-                    <li><a asp-area="" asp-controller="Questions" asp-action="Index">Question Board</a></li>
-                    <li><a asp-area="" asp-controller="Admin" asp-action="ListRoles">Manage Roles</a></li>
                     @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
-                        //put admin link back here
+                    <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
+                    }
+                    
+                    <li><a asp-area="" asp-controller="Questions" asp-action="Index">Question Board</a></li>
+                    @*<li><a asp-area="" asp-controller="Admin" asp-action="ListRoles">Manage Roles</a></li>*@
+                    @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                    <li><a asp-area="" asp-controller="Admin" asp-action="ListRoles">Manage Roles</a></li>
                     }
 
                 </ul>
