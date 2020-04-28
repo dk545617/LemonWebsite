@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Lemon.Data;
 using Lemon.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Lemon.Controllers
 {
@@ -15,10 +17,15 @@ namespace Lemon.Controllers
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public UsersController(ApplicationDbContext context)
+
+
+        public UsersController(ApplicationDbContext context,
+                               IHostingEnvironment hostingEnvironment)
         {
             _context = context;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Users
@@ -46,8 +53,28 @@ namespace Lemon.Controllers
         }
 
         // GET: Users/Create
-        public IActionResult Create()
+        public IActionResult Create(EmployeeCreateViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = null;
+                if(model.Photo != null)
+                {
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+
+                User newUser = new User
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Phone = model.Phone,
+                    PhotoPath = uniqueFileName
+                };
+            }
             return View();
         }
 
