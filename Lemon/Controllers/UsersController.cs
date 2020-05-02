@@ -53,12 +53,42 @@ namespace Lemon.Controllers
         }
 
         // GET: Users/Create
-        public IActionResult Create(EmployeeCreateViewModel model)
+        public IActionResult Create()
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    string uniqueFileName = null;
+            //    if(model.Photo != null)
+            //    {
+            //        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+            //        uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+            //        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            //        model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+            //    }
+
+            //    User newUser = new User
+            //    {
+            //        FirstName = model.FirstName,
+            //        LastName = model.LastName,
+            //        Email = model.Email,
+            //        Phone = model.Phone,
+            //        PhotoPath = uniqueFileName
+            //    };
+            //}
+            return View();
+        }
+
+        // POST: Users/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+       // [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(EmployeeCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
-                if(model.Photo != null)
+                if (model.Photo != null)
                 {
                     string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
@@ -74,24 +104,11 @@ namespace Lemon.Controllers
                     Phone = model.Phone,
                     PhotoPath = uniqueFileName
                 };
+                _context.Add(newUser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("details", new { id = newUser.UserId });
             }
             return View();
-        }
-
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,FirstName,LastName,Email,Phone")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user);
         }
 
         // GET: Users/Edit/5
