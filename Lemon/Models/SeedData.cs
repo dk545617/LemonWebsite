@@ -6,15 +6,43 @@ using System.Threading.Tasks;
 using Lemon.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Lemon.Models
 {
     public static class SeedData
     {
-        public static void EnsurePopulated(IApplicationBuilder app)
+        public static async void EnsurePopulated(IApplicationBuilder app)
         {
             ApplicationDbContext context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>();
+            var userManager = app.ApplicationServices.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleManager = app.ApplicationServices.GetRequiredService<RoleManager<IdentityRole>>();
             context.Database.Migrate();
+
+            if (!context.Roles.Any())
+            {
+                IdentityRole role = new IdentityRole("Admin");
+                var x = await roleManager.CreateAsync(role);
+            }
+            
+            if (!context.Users.Any())
+            {
+                ApplicationUser user = new ApplicationUser()
+                {
+                    Email = "lemonadmin@lemon.com",
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    UserName = "lemonadmin@lemon.com"
+                };
+                var x = await userManager.CreateAsync(user, "i@maLemony1");
+            }
+
+            if (!context.UserRoles.Any())
+            {
+                var roleUser = await GetDefaultUser(userManager, "lemonadmin@lemon.com");
+                var x = await userManager.AddToRoleAsync(roleUser, "Admin");
+
+            }
+
             if (!context.Purchases.Any())
             {
                 context.Purchases.AddRange(
@@ -74,7 +102,7 @@ namespace Lemon.Models
                     }
                 );
                 context.SaveChanges();
-            }
+            }//end purchases
 
             if (!context.Fruits.Any())
             {
@@ -125,7 +153,15 @@ namespace Lemon.Models
 
                 );
                 context.SaveChanges();
-            }
+            }//end fruits
+        }//end EnsurePopulated
+
+        private static async Task<ApplicationUser> GetDefaultUser(UserManager<ApplicationUser> um,  string email)
+        {
+            var createdUser = await um.FindByEmailAsync(email);
+            return createdUser;
         }
+
+
     }
 }
