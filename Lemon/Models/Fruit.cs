@@ -8,6 +8,7 @@ namespace Lemon.Models
 {
     public class Fruit
     {
+        [Key]
         public int FruitID { get; set; }
         [Required (ErrorMessage = "The Lemon name is required")]
         public string Name { get; set; }
